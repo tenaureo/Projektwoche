@@ -3,7 +3,7 @@ package model;
 import java.sql.Timestamp;
 
 /**
- * @author Moritz Meier
+ * @author Vator
  * @version 1.0
  * @since 2020-September-30
  */
