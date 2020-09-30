@@ -1,6 +1,8 @@
 package Main;
 
-import javax.swing.text.View;
+import View.View;
+
+import static javafx.application.Application.launch;
 
 /**
  * @author Vator
@@ -10,10 +12,8 @@ import javax.swing.text.View;
 
 public class Main {
 
-    private View view;
-
     public static void main(String[] args) {
-
+        launch(View.class);
     }
 
 }
