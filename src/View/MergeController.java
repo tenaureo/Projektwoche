@@ -1,4 +1,4 @@
-package ch.vator.stromzaehler.View;
+package View;
 
 /**
  * @author Moritz Meier

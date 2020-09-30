@@ -1,6 +1,6 @@
-package ch.vator.stromzaehler.View;
+package View;
 
-import ch.vator.stromzaehler.Datahandler.DataHandler;
+import Datahandler.DataHandler;
 import model.ESL;
 
 import java.awt.*;

@@ -1,4 +1,4 @@
-package ch.vator.stromzaehler.Model;
+package Model;
 
 public class ExportJSON {
 }

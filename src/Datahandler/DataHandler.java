@@ -1,4 +1,4 @@
-package ch.vator.stromzaehler.Datahandler;
+package Datahandler;
 
 import model.ESL;
 

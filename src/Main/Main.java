@@ -1,4 +1,4 @@
-package ch.vator.stromzaehler.Main;
+package Main;
 
 import javax.swing.text.View;
 
