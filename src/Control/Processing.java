@@ -6,7 +6,7 @@ import Model.ESL;
 import java.util.Map;
 
 /**
- * @author Vator
+ * @author Vator AG
  * @version 1.0
  * @since 2020-September-30
  */

@@ -1,12 +1,12 @@
 package Datahandler;
 
-import Model.ESL;
 import Model.SDAT;
+import Model.ESL;
 
 import java.util.Map;
 
 /**
- * @author Moritz Meier
+ * @author Vator
  * @version 1.0
  * @since 2020-September-30
  */
