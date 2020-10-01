@@ -1,7 +1,7 @@
 package Datahandler;
 
 import Model.SDAT;
-import model.ESL;
+import Model.ESL;
 
 import java.util.Map;
 
