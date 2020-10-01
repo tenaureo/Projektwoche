@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.ESL;
+import Model.ESL;
 
 import java.awt.*;
 import java.util.Map;
