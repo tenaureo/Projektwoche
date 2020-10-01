@@ -14,15 +14,33 @@ import java.util.ArrayList;
 @XmlRootElement(name = "ESLBillingData")
 public class ESLXml {
 
-    private ArrayList<TimePeriod> timePeriodList;
+    private ArrayList<Meter> meterList;
 
     public ESLXml() {
 
     }
+    @XmlElement(name = "Meter")
+    public ArrayList<Meter> getMeterList() {
+        if(meterList == null){
+            meterList = new ArrayList<Meter>();
+        }
+        return meterList;
+    }
+}
 
-    @XmlElementWrapper(name = "Meter")
+@XmlRootElement(name = "Meter")
+class Meter {
+    private ArrayList<TimePeriod> timePeriodList;
+
+    public Meter() {
+
+    }
+
     @XmlElement(name = "TimePeriod")
     public ArrayList<TimePeriod> getTimePeriodList() {
+        if(timePeriodList == null){
+            timePeriodList = new ArrayList<TimePeriod>();
+        }
         return timePeriodList;
     }
 }
@@ -33,18 +51,27 @@ class TimePeriod {
     private String end;
     private ArrayList<Values> valuesList;
 
-    TimePeriod(String end){
+    private TimePeriod() {
+
+    }
+
+    public TimePeriod(String end){
+        super();
         this.end = end;
     }
 
     public Timestamp getTime(){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddThh:mm:ss");
+        end = end.replace('T', ' ');
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime localDate = LocalDateTime.parse(end, formatter);
         return Timestamp.valueOf(localDate);
     }
 
     @XmlElement(name = "ValueRow")
     public ArrayList<Values> getValuesList() {
+        if(valuesList == null){
+            valuesList = new ArrayList<Values>();
+        }
         return valuesList;
     }
 }
@@ -55,7 +82,12 @@ class Values {
     private String value;
     @XmlAttribute(name = "obis")
     private String obis;
-    Values(String value, String time, String obis){
+    private Values(){
+
+    }
+
+    public Values(String value, String time, String obis){
+        super();
         this.value = value;
         this.obis = obis;
     }
@@ -65,6 +97,6 @@ class Values {
     }
 
     public String getObis() {
-        return obis.substring(obis.length()-6, obis.length()-1);
+        return obis.substring(obis.length()-5, obis.length());
     }
 }
