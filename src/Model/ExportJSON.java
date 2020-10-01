@@ -7,4 +7,12 @@ package Model;
  */
 
 public class ExportJSON {
+  
+  public ExportJSON(){
+
+    }
+
+    public writeJSON(){
+
+    }
 }
