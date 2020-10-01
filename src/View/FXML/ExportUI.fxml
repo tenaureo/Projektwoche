@@ -52,12 +52,12 @@
                     <BorderPane.margin>
                         <Insets top="5.0" />
                     </BorderPane.margin>
-                    <Button mnemonicParsing="false" onAction="#onbutton" prefHeight="25.0" prefWidth="70.0" text="JSON" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <Button fx:id="json" mnemonicParsing="false" onAction="#onbutton" prefHeight="25.0" prefWidth="70.0" text="JSON" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                         <GridPane.margin>
                             <Insets />
                         </GridPane.margin>
                     </Button>
-                    <Button mnemonicParsing="false" onAction="#onbutton" prefHeight="25.0" prefWidth="70.0" text="CSV" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <Button fx:id="csv" mnemonicParsing="false" onAction="#onbutton" prefHeight="25.0" prefWidth="70.0" text="CSV" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                         <GridPane.margin>
                             <Insets />
                         </GridPane.margin>

@@ -3,6 +3,7 @@ package View;
 import Control.Processing;
 import Model.ESL;
 import Model.ExportCSV;
+import Model.ExportJSON;
 import Model.SDAT;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
@@ -38,6 +40,8 @@ public class ExportController implements Initializable {
     private Processing processing;
 
     @FXML private ImageView logo;
+    @FXML private Button json;
+    @FXML private Button csv;
 
     @FXML
     private void onBackPressed(ActionEvent event) throws IOException {
@@ -67,9 +71,17 @@ public class ExportController implements Initializable {
 
         if (selectDirectory != null) {
 
-            ExportCSV exportCSV = new ExportCSV(eslMap, sdatMap);
-            exportCSV.writeCSV(selectDirectory);
+            if ((Button)(Node)event.getSource() == csv) {
 
+                ExportCSV exportCSV = new ExportCSV(eslMap, sdatMap);
+                exportCSV.writeCSV(selectDirectory);
+
+            } else {
+
+                ExportJSON exportJSON = new ExportJSON(eslMap, sdatMap);
+                exportJSON.writeJSON(selectDirectory);
+
+            }
             endwindow.initModality(Modality.WINDOW_MODAL);
             endwindow.initOwner(window);
             endwindow.setScene(saveUIscene);
