@@ -10,30 +10,32 @@ import java.sql.Timestamp;
 
 public class ESL {
     private Timestamp timeID;
-    private String obis;
-    private boolean feed;
-    private double value;
+    private int increment = 0;
+    private double[] value = new double[4];
 
-    public ESL(Timestamp timeID, String obis, boolean feed, double value){
+    public ESL(Timestamp timeID, double value){
         this.timeID = timeID;
-        this.obis = obis;
-        this.feed = feed;
-        this.value = value;
+        this.value[increment] = value;
+        increment++;
     }
 
     public Timestamp getTimeID() {
         return timeID;
     }
 
-    public String getObis() {
-        return obis;
+    public void addValue(double value){
+        this.value[increment] = value;
+        increment++;
     }
 
-    public boolean isFeed() {
-        return feed;
-    }
-
-    public double getValue() {
-        return value;
+    public double getValue(String selection) {
+        switch (selection){
+            case "high":
+                return value[0]-value[3];
+            case "low":
+                return value[2]-value[4];
+            default:
+                return 0.0f;
+        }
     }
 }
