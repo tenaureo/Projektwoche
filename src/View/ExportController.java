@@ -1,5 +1,9 @@
 package View;
 
+import Control.Processing;
+import Model.ESL;
+import Model.ExportCSV;
+import Model.SDAT;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,13 +13,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -26,8 +33,11 @@ import java.util.ResourceBundle;
 
 public class ExportController implements Initializable {
 
-    @FXML
-    private ImageView logo;
+    private Map<String, ESL> eslMap;
+    private Map<String, SDAT> sdatMap;
+    private Processing processing;
+
+    @FXML private ImageView logo;
 
     @FXML
     private void onBackPressed(ActionEvent event) throws IOException {
@@ -51,11 +61,21 @@ public class ExportController implements Initializable {
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-        endwindow.initModality(Modality.WINDOW_MODAL);
-        endwindow.initOwner(window);
+        DirectoryChooser directoryChooser = new DirectoryChooser();
 
-        endwindow.setScene(saveUIscene);
-        endwindow.show();
+        File selectDirectory = directoryChooser.showDialog(window);
+
+        if (selectDirectory != null) {
+
+            ExportCSV exportCSV = new ExportCSV(eslMap, sdatMap);
+            exportCSV.writeCSV(selectDirectory);
+
+            endwindow.initModality(Modality.WINDOW_MODAL);
+            endwindow.initOwner(window);
+            endwindow.setScene(saveUIscene);
+            endwindow.show();
+        }
+
     }
 
     public Image getImage() throws FileNotFoundException {
@@ -65,6 +85,10 @@ public class ExportController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        eslMap = processing.getEslMap();
+        sdatMap = processing.getSdatMap();
+
         try {
             logo.setImage(getImage());
         } catch (FileNotFoundException e) {

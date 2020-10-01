@@ -27,7 +27,7 @@ public class EndUIController implements Initializable {
     @FXML private ImageView logo;
 
     public Image getImage() throws FileNotFoundException {
-        Image image = new Image(new FileInputStream("images/logo.PNG"));
+        Image image = new Image(new FileInputStream("images/logo2.PNG"));
         return image;
     }
 

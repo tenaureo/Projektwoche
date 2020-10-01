@@ -65,50 +65,63 @@
                                         <children>
                                             <Label text="Anfangsdatum" />
                                             <Label text="Enddatum" GridPane.rowIndex="1" />
-                                            <DatePicker GridPane.columnIndex="1" />
-                                            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                            <DatePicker fx:id="anfang" GridPane.columnIndex="1" />
+                                            <DatePicker fx:id="ende" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         </children>
                                         <padding>
                                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                         </padding>
                                     </GridPane>
-                           <GridPane>
-                             <columnConstraints>
-                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                             </columnConstraints>
-                             <rowConstraints>
-                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                             </rowConstraints>
-                              <children>
-                                 <CheckBox mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="CheckBox" GridPane.columnIndex="1">
-                                    <GridPane.margin>
-                                       <Insets left="25.0" />
-                                    </GridPane.margin>
-                                 </CheckBox>
-                                 <CheckBox mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="CheckBox" />
-                                 <CheckBox mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="CheckBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                       <Insets left="25.0" />
-                                    </GridPane.margin>
-                                 </CheckBox>
-                                 <CheckBox mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="CheckBox" GridPane.rowIndex="1" />
-                                 <CheckBox mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="CheckBox" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                    <GridPane.margin>
-                                       <Insets left="25.0" />
-                                    </GridPane.margin>
-                                 </CheckBox>
-                                 <CheckBox mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="CheckBox" GridPane.rowIndex="2" />
-                              </children>
-                              <opaqueInsets>
-                                 <Insets />
-                              </opaqueInsets>
-                              <padding>
-                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                              </padding>
-                           </GridPane>
+                                    <GridPane>
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        </rowConstraints>
+                                        <opaqueInsets>
+                                            <Insets />
+                                        </opaqueInsets>
+                                        <padding>
+                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                        </padding>
+                                        <children>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                <children>
+                                                    <Label layoutX="14.0" layoutY="5.0" text="Hochtarif:" />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                                <children>
+                                                    <Label layoutX="14.0" layoutY="6.0" text="Niedertarif:" />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                                <children>
+                                                    <CheckBox fx:id="einspeisungh" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" text="Einspeisung " />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                <children>
+                                                    <CheckBox fx:id="bezugh" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" text="Bezug" />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                                <children>
+                                                    <CheckBox fx:id="einspeisungn" layoutX="14.0" layoutY="5.0" mnemonicParsing="false" text="Einspeisung " />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                <children>
+                                                    <CheckBox fx:id="bezugn" layoutX="14.0" layoutY="5.0" mnemonicParsing="false" text="Bezug" />
+                                                </children>
+                                            </AnchorPane>
+                                        </children>
+                                    </GridPane>
                            <AnchorPane prefHeight="44.0" prefWidth="213.0">
                               <children>
                                  <Button layoutX="72.0" layoutY="9.0" mnemonicParsing="false" text="Speichern" />

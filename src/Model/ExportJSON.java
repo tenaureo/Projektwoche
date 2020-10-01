@@ -12,7 +12,7 @@ public class ExportJSON {
 
     }
 
-    public writeJSON(){
+    public void writeJSON(){
 
     }
 }
