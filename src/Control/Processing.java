@@ -4,6 +4,7 @@ import Datahandler.DataHandler;
 import Model.SDAT;
 import Model.ESL;
 import View.ConsumptionController;
+import java.util.Set;
 
 import com.sun.source.tree.Tree;
 
@@ -47,9 +48,14 @@ public class Processing {
     public void sortData(){
             eslMap = DataHandler.DATA_HANDLER.getEslMap();
             sdatMap = DataHandler.DATA_HANDLER.getSdatMap();
-        TreeSet<String> keyset = new TreeSet<>();
-        for (String s: eslMap.keySet()) {
+
+            TreeMap<String, ESL> newESLMap = new TreeMap<>(eslMap);
+            TreeMap<String, SDAT> newSDATMap = new TreeMap<>(sdatMap);
+/**
+            TreeSet<String> keyset = new TreeSet<String>();
+            for (String s: eslMap.keySet()) {
             keyset.add(s);
+
         }
 
             HashMap<String, ESL> newESLMap = new HashMap<String, ESL>();
@@ -59,7 +65,7 @@ public class Processing {
              }
 
              eslMap = newESLMap;
-     }
+     } */
 
      //the sorted data can be filtered by choosing a time span from which they want to see the data
 
