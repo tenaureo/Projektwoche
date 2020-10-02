@@ -3,24 +3,29 @@ package Control;
 import Datahandler.DataHandler;
 import Model.SDAT;
 import Model.ESL;
+import View.ConsumptionController;
 
-import java.util.Map;
-import java.util.TreeSet;
+import com.sun.source.tree.Tree;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
+
 
 /**
  * @author Vator AG
  * @version 1.0
  * @since 2020-September-30
  */
-
 public class Processing {
 
     private Map<String, ESL> eslMap;
     private Map<String, SDAT> sdatMap;
 
     public Processing(){
-        eslMap = DataHandler.DATA_HANDLER.getEslMap();
-        sdatMap = DataHandler.DATA_HANDLER.getSdatMap();
+
     }
     public Map<String, ESL> getEslMap() {
         return eslMap;
@@ -40,14 +45,39 @@ public class Processing {
 
     //sorts data from Hashmap by keys which are Timestamps, ranging from earliest to latest
     public void sortData(){
+            eslMap = DataHandler.DATA_HANDLER.getEslMap();
+            sdatMap = DataHandler.DATA_HANDLER.getSdatMap();
+        TreeSet<String> keyset = new TreeSet<>();
+        for (String s: eslMap.keySet()) {
+            keyset.add(s);
+        }
 
-            Processing pr = new Processing();
+            HashMap<String, ESL> newESLMap = new HashMap<String, ESL>();
 
-            pr.getSdatMap();
+             for(String s :keyset){
+                newESLMap.put(s, eslMap.get(s));
+             }
 
-            TreeSet<String> keyset = (TreeSet<String>) sdatMap.keySet();
-
-            System.out.println(keyset);
+             eslMap = newESLMap;
      }
 
+     //the sorted data can be filtered by choosing a time span from which they want to see the data
+
+/**
+    public void filterbyDate(int low, int high) throws ParseException {
+
+            String from;
+            String today = LocalDate.now().toString();
+            String to;
+
+            DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            Date date1 = format.parse(from);
+            Date date2 = format.parse(today);
+            Date date3 = format.parse(to);
+
+            if(date1.before(date2) && date3.after(date2)){
+
+            }
+
+     }*/
 }
