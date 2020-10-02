@@ -28,10 +28,10 @@
                 <children>
                     <LineChart fx:id="chart" prefHeight="375.0" prefWidth="458.0">
                         <xAxis>
-                            <CategoryAxis side="BOTTOM" />
+                            <CategoryAxis side="BOTTOM" fx:id="x" />
                         </xAxis>
                         <yAxis>
-                            <NumberAxis side="LEFT" />
+                            <NumberAxis side="LEFT" fx:id="y"/>
                         </yAxis>
                     </LineChart>
                     <BorderPane prefHeight="375.0" prefWidth="214.0">

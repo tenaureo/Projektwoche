@@ -1,5 +1,8 @@
 package View;
 
+import Control.Processing;
+import Model.ESL;
+import Model.SDAT;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
@@ -22,6 +26,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -39,7 +45,9 @@ public class MeterReadingController implements Initializable {
     @FXML private CheckBox einspeisungn;
     @FXML private DatePicker anfang;
     @FXML private DatePicker ende;
-    @FXML private LineChart<CategoryAxis, Number> chart;
+    @FXML private CategoryAxis x;
+    @FXML private  NumberAxis y;
+    @FXML private LineChart<?, ?> chart;
 
     @FXML
     private void onExport(ActionEvent event) throws IOException {
@@ -77,7 +85,8 @@ public class MeterReadingController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        Map<String, ESL> eslMap = Processing.PROCESSING.getEslMap();
+        Map<String, SDAT> sdatMap = Processing.PROCESSING.getSdatMap();
         bezugh.setSelected(true);
         bezugn.setSelected(true);
         einspeisungh.setSelected(true);
@@ -90,12 +99,17 @@ public class MeterReadingController implements Initializable {
             e.printStackTrace();
         }
 
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Zeit");
-        NumberAxis yAxis = new NumberAxis(0,30000,100);
-        yAxis.setLabel("Zählerstand");
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Zählerstand");
 
-        chart = new LineChart(xAxis,yAxis);
+        for (ESL e : eslMap.values()) {
+            series.getData().add(new XYChart.Data(e.getTimeID().toString(), e.getValue("high")));
+        }
+
+        x.setLabel("Zeit");
+        y.setLabel("Zählerstand");
+
+        chart.getData().addAll(series);
         chart.setTitle("Zählerstanddiagramm");
 
         try {

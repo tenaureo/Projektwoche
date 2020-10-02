@@ -1,5 +1,6 @@
 package View;
 
+import Control.Processing;
 import Model.ESL;
 import Model.ExportCSV;
 import Model.SDAT;
@@ -34,7 +35,6 @@ public class ExportController implements Initializable {
 
     private Map<String, ESL> eslMap;
     private Map<String, SDAT> sdatMap;
-    private Processing processing = new Processing();
 
     @FXML private ImageView logo;
 
@@ -85,8 +85,8 @@ public class ExportController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        eslMap = processing.getEslMap();
-        sdatMap = processing.getSdatMap();
+        eslMap = Processing.PROCESSING.getEslMap();
+        sdatMap = Processing.PROCESSING.getSdatMap();
 
         try {
             logo.setImage(getImage());

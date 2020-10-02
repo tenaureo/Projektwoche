@@ -1,5 +1,6 @@
 package View;
 
+import Control.Processing;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,6 +45,7 @@ public class StartUIController implements Initializable {
     public void start(ActionEvent event) throws IOException {
         Parent saveUIParent = FXMLLoader.load(getClass().getResource("FXML/ConsumptionUI.fxml"));
         Scene saveUIscene = new Scene(saveUIParent);
+
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
