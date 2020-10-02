@@ -30,28 +30,29 @@ public class ExportCSV {
             sb.append("ESL:");
             sb.append('\n');
             sb.append("timestamp,");
-            sb.append(',');
+            sb.append(';');
             sb.append("value");
             sb.append('\n');
 
-            for (int i = 0; i < eslMap.size()-1; i++) {
-                sb.append("test");
-                sb.append(',');
-                sb.append("test");
+            for (ESL esl: eslMap.values()) {
+                sb.append(esl.getTimeID().toString());
+                sb.append(';');
+                sb.append(esl.getValue("high"));
                 sb.append('\n');
             }
+
 
             sb.append("sdat:");
             sb.append('\n');
             sb.append("timestamp,");
-            sb.append(',');
+            sb.append(';');
             sb.append("value");
             sb.append('\n');
 
-            for (int i = 0; i < sdatMap.size()-1; i++) {
-                sb.append("test");
-                sb.append(',');
-                sb.append("test");
+            for (SDAT sdat: sdatMap.values()) {
+                sb.append(sdat.getTimeID().toString());
+                sb.append(';');
+                sb.append(sdat.getTotalValue());
                 sb.append('\n');
             }
 

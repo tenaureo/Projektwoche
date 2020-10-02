@@ -86,7 +86,6 @@ public class MeterReadingController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Map<String, ESL> eslMap = Processing.PROCESSING.getEslMap();
-        Map<String, SDAT> sdatMap = Processing.PROCESSING.getSdatMap();
         bezugh.setSelected(true);
         bezugn.setSelected(true);
         einspeisungh.setSelected(true);

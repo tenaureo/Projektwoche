@@ -52,7 +52,7 @@
                     <BorderPane.margin>
                         <Insets top="5.0" />
                     </BorderPane.margin>
-                    <Button mnemonicParsing="false" onAction="#onbutton" prefHeight="25.0" prefWidth="70.0" text="JSON" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <Button mnemonicParsing="false" onAction="#onBackPressed" prefHeight="25.0" prefWidth="70.0" text="JSON" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                         <GridPane.margin>
                             <Insets />
                         </GridPane.margin>

@@ -53,6 +53,9 @@ public class ExportController implements Initializable {
     @FXML
     private void onbutton(ActionEvent event) throws IOException {
 
+        Map<String, ESL> eslMap = Processing.PROCESSING.getEslMap();
+        Map<String, SDAT> sdatMap = Processing.PROCESSING.getSdatMap();
+
         Parent saveUIParent = FXMLLoader.load(getClass().getResource("FXML/EndUI.fxml"));
         Scene saveUIscene = new Scene(saveUIParent);
 
@@ -65,6 +68,7 @@ public class ExportController implements Initializable {
         File selectDirectory = directoryChooser.showDialog(window);
 
         if (selectDirectory != null) {
+
 
             ExportCSV exportCSV = new ExportCSV(eslMap, sdatMap);
             exportCSV.writeCSV(selectDirectory);
@@ -85,8 +89,7 @@ public class ExportController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        eslMap = Processing.PROCESSING.getEslMap();
-        sdatMap = Processing.PROCESSING.getSdatMap();
+
 
         try {
             logo.setImage(getImage());

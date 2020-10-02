@@ -1,5 +1,8 @@
 package View;
 
+import Control.Processing;
+import Model.ESL;
+import Model.SDAT;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -34,7 +39,9 @@ public class ConsumptionController implements Initializable {
     @FXML private ImageView logo;
     @FXML private DatePicker anfang;
     @FXML private DatePicker ende;
-    @FXML private LineChart<CategoryAxis, Number> chart;
+    @FXML private CategoryAxis x;
+    @FXML private  NumberAxis y;
+    @FXML private LineChart<?, ?> chart;
 
     @FXML
     private void onExport(ActionEvent event) throws IOException {
@@ -72,6 +79,7 @@ public class ConsumptionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Map<String, SDAT> sdatMap = Processing.PROCESSING.getSdatMap();
 
         try {
             anfang.setValue(LOCAL_DATE("2019-03-11"));
@@ -80,12 +88,17 @@ public class ConsumptionController implements Initializable {
             e.printStackTrace();
         }
 
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Zeit");
-        NumberAxis yAxis = new NumberAxis(0,30000,100);
-        yAxis.setLabel("Verbrauch");
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Verbrauch");
 
-        chart = new LineChart(xAxis,yAxis);
+        for (SDAT sdat : sdatMap.values()) {
+            series.getData().add(new XYChart.Data(sdat.getTimeID().toString(), sdat.getTotalValue()));
+        }
+
+        x.setLabel("Zeit");
+        y.setLabel("Verbrauch");
+
+        chart.getData().addAll(series);
         chart.setTitle("Verbrauchsdiagramm");
 
         try {
