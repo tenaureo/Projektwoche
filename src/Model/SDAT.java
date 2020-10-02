@@ -40,11 +40,7 @@ public class SDAT {
     }
 
     public boolean hasValueID(int id){
-        if(value.get(id) != null){
-            return true;
-        } else {
-            return false;
-        }
+        return value.get(id) != null;
     }
 
     public Map<Integer, Double> getValue(){

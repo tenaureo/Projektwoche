@@ -8,9 +8,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * @author Vator AG
@@ -24,7 +23,7 @@ public class DataHandler {
     private ArrayList<File> read = new ArrayList<>();
     private ESLXml eslXml;
     private SDATXml sdatXml;
-    private Map<String, SDAT> sdatMap;
+    private Map<String, SDAT> sdatMap = new HashMap<>();
     private Map<String, ESL> eslMap = new HashMap<>();
     public static final DataHandler DATA_HANDLER = new DataHandler();
     private DataHandler() {
@@ -57,25 +56,29 @@ public class DataHandler {
     }
 
     public void readSDAT(){
-        try {
-            double total = 0.0f;
-            JAXBContext context = JAXBContext.newInstance(SDATXml.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            for (File file : read) {
-                sdatXml = (SDATXml) unmarshaller.unmarshal(file);
-                if(!sdatMap.containsKey(sdatXml.getTimeID().toString())) {
-                    for (Metering meters : sdatXml.getMetering()) {
-                        for (Observations obs : meters.getObservations()) {
-                            SDAT sdat = new SDAT(sdatXml.getTimeID(), sdatXml.getNumID(), sdatXml.getMeasure(), obs.getSeqID().get(0), obs.getVolume().get(0));
-                            for (int i = 1; i < obs.getSeqID().size(); i++) {
-                                sdat.addValue(obs.getSeqID().get(i), obs.getVolume().get(i));
+        List<Class<? extends SDATXml>> sdats = Arrays.asList(SDAT12.class, SDAT13.class, SDAT14.class);
+        for(Class sdat : sdats) {
+            try {
+                double total = 0.0f;
+                JAXBContext context = JAXBContext.newInstance(sdat);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                for (File file : read) {
+                    sdatXml = (SDATXml) unmarshaller.unmarshal(file);
+                    if (!sdatMap.containsKey(sdatXml.getTime().toString())) {
+                        for (Metering meters : sdatXml.getMetering()) {
+                            for (Observations obs : meters.getObservations()) {
+                                if (!sdatMap.containsKey(sdatXml.getTime().toString())) {
+                                    sdatMap.put(sdatXml.getTime().toString(), new SDAT(sdatXml.getTime(), sdatXml.getNumID(), sdatXml.getMeasure(), obs.getSeqID(), obs.getVolume()));
+                                } else {
+                                    sdatMap.get(sdatXml.getTime().toString()).addValue(obs.getSeqID(), obs.getVolume());
+                                }
                             }
                         }
                     }
                 }
+            } catch (JAXBException ignored) {
+
             }
-        } catch (JAXBException e){
-            e.printStackTrace();
         }
     }
 

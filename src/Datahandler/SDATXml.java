@@ -12,17 +12,13 @@ import java.util.ArrayList;
  * @since 2020-September-30
  */
 
-@XmlRootElement(name = "ValidatedMeteredData_12")
 public class SDATXml {
 
     @XmlElement(name = "ValidatedMeteredData_HeaderInformation")
-    private String numID = new Header().getDocumentID();
+    private Header numID;
 
     @XmlElement(name = "MeteringData")
-    private String measure = new Measure().getMeasure();
-
-    @XmlElement(name = "MeteringData")
-    private Timestamp timeID = new StartDate().getTime();
+    private Metering meter;
 
     private ArrayList<Metering> meterings;
 
@@ -38,38 +34,61 @@ public class SDATXml {
         return meterings;
     }
 
-    public String getNumID() {
-        return numID;
+    public Timestamp getTime(){
+        return meter.getTime();
     }
 
-    public Timestamp getTimeID() {
-        if (timeID == null){
-            timeID = Timestamp.valueOf("2000-07-07 19:00:00Z");
-        }
-        return timeID;
+    public String getNumID() {
+        return numID.getDocumentID();
     }
 
     public String getMeasure() {
-        return measure;
+        return meter.getMeasure();
     }
 }
 
-@XmlRootElement(name = "ValidatedMeteredData_HeaderInformation")
+class Metering{
+
+    @XmlElement(name = "Interval")
+    private StartDate time;
+
+    @XmlElement(name = "Product")
+    private Product measure;
+
+    @XmlElement(name = "Observation")
+    private ArrayList<Observations> observations;
+
+    public Metering(){
+
+    }
+
+    public Timestamp getTime() {
+        return time.getTime();
+    }
+
+    public String getMeasure() {
+        return measure.getMeasure();
+    }
+
+    public ArrayList<Observations> getObservations() {
+        return observations;
+    }
+}
+
 class Header{
 
     @XmlElement(name = "InstanceDocument")
-    private String documentID = new DocumentID().getDocumentID();
+    private DocumentID documentID;
 
     public Header(){
 
     }
 
     public String getDocumentID() {
-        return documentID;
+        return documentID.getDocumentID();
     }
 }
 
-@XmlRootElement(name = "InstanceDocument")
 class DocumentID{
 
     @XmlElement(name = "DocumentID")
@@ -80,69 +99,29 @@ class DocumentID{
     }
 
     public String getDocumentID() {
-        return documentID.substring(documentID.length()-5);
+        return documentID;
     }
 }
 
-@XmlRootElement(name = "MeteringData")
-class Metering{
-
-    private ArrayList<Observations> observations;
-
-    public Metering(){
-
-    }
-
-    @XmlElement(name = "Observation")
-    public ArrayList<Observations> getObservations(){
-        if (observations == null){
-            observations = new ArrayList<>();
-        }
-        return observations;
-    }
-}
-
-@XmlRootElement(name = "Observation")
 class Observations{
-    private ArrayList<Double> volumeList;
-    private ArrayList<Integer> seqIDList;
+    @XmlElement(name = "Volume")
+    private double volume;
+    @XmlElement(name = "Position")
+    private int seqID;
 
     public Observations(){
 
     }
 
-    @XmlElement(name = "Volume")
-    public ArrayList<Double> getVolume(){
-        if (volumeList == null){
-            volumeList = new ArrayList<Double>();
-        }
-        return volumeList;
+    public double getVolume(){
+        return volume;
     }
 
-    @XmlElement(name = "Position")
-    public ArrayList<Integer> getSeqID(){
-        if (seqIDList == null){
-            seqIDList = new ArrayList<Integer>();
-        }
-        return seqIDList;
+    public int getSeqID(){
+        return seqID;
     }
 }
 
-@XmlRootElement(name = "Position")
-class Position {
-    @XmlAttribute(name = "Sequence")
-    private int pos;
-
-    private Position(){
-
-    }
-
-    public int getPos() {
-        return pos;
-    }
-}
-
-@XmlRootElement(name = "Interval")
 class StartDate {
 
     @XmlElement(name = "StartDateTime")
@@ -152,23 +131,37 @@ class StartDate {
 
     }
 
-    public Timestamp getTime(){
+    public Timestamp getTime() {
         time = time.replace('T', ' ');
-        return Timestamp.valueOf(time);
+        return Timestamp.valueOf(time.substring(0, time.length()-1));
     }
 }
 
-@XmlRootElement(name = "Product")
-class Measure {
+class Product{
 
     @XmlElement(name = "MeasureUnit")
     private String measure;
 
-    public Measure(){
+    public Product(){
 
     }
 
-    public String getMeasure(){
+    public String getMeasure() {
         return measure;
     }
+}
+
+@XmlRootElement(name = "ValidatedMeteredData_12")
+class SDAT12 extends SDATXml{
+    public SDAT12(){
+        super();
+    }
+}
+
+@XmlRootElement(name = "ValidatedMeteredData_13")
+class SDAT13 extends SDATXml{
+}
+
+@XmlRootElement(name = "ValidatedMeteredData_14")
+class SDAT14 extends SDATXml{
 }
