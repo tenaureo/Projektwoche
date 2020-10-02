@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
- * @author Vator
+ * @author Vator AG
  * @version 1.0
  * @since 2020-September-30
  */
@@ -35,7 +35,7 @@ public class ExportController implements Initializable {
 
     private Map<String, ESL> eslMap;
     private Map<String, SDAT> sdatMap;
-    private Processing processing;
+    private Processing processing = new Processing();
 
     @FXML private ImageView logo;
 
@@ -79,7 +79,7 @@ public class ExportController implements Initializable {
     }
 
     public Image getImage() throws FileNotFoundException {
-        Image image = new Image(new FileInputStream("images/logo.PNG"));
+        Image image = new Image(new FileInputStream("files/images/logo.PNG"));
         return image;
     }
 

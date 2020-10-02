@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
- * @author Vator
+ * @author Vator AG
  * @version 1.0
  * @since 2020-September-30
  */
@@ -62,14 +62,12 @@ public class ConsumptionController implements Initializable {
     }
 
     public Image getImage() throws FileNotFoundException {
-        Image image = new Image(new FileInputStream("images/logo.PNG"));
-        return image;
+        return new Image(new FileInputStream("files/images/logo.PNG"));
     }
 
-    public static final LocalDate LOCAL_DATE (String dateString){
+    public LocalDate LOCAL_DATE (String dateString){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(dateString, formatter);
-        return localDate;
+        return LocalDate.parse(dateString, formatter);
     }
 
     @Override

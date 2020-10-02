@@ -28,8 +28,7 @@ public class StartUIController implements Initializable {
     @FXML private ImageView logo;
 
     public Image getImage() throws FileNotFoundException {
-        Image image = new Image(new FileInputStream("images/logo.PNG"));
-        return image;
+        return new Image(new FileInputStream("files/images/logo.PNG"));
     }
 
     @Override

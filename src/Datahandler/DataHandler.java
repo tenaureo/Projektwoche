@@ -1,6 +1,7 @@
 package Datahandler;
 
 import Model.ESL;
+import Model.SDAT;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -12,48 +13,70 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Vator
+ * @author Vator AG
  * @version 1.0
  * @since 2020-September-30
  */
 
 public class DataHandler {
 
-    private String dir = "C:\\Users\\Vinicius\\IdeaProjects\\test\\ESL-Files";
+    private String dir = System.getProperty("user.dir")+"\\files";
     private ArrayList<File> read = new ArrayList<>();
     private ESLXml eslXml;
-    //private  Map<String, SDAT> sdatMap;
+    private SDATXml sdatXml;
+    private Map<String, SDAT> sdatMap;
     private Map<String, ESL> eslMap = new HashMap<>();
-    private static final DataHandler DATA_HANDLER = new DataHandler();
+    public static final DataHandler DATA_HANDLER = new DataHandler();
     private DataHandler() {
 
     }
 
-    public DataHandler getDataHandler() {
+    public DataHandler getInstance() {
         return DATA_HANDLER;
     }
 
     public void readFiles() throws FileNotFoundException {
-        File[] files = new File("C:\\Users\\Vinicius\\IdeaProjects\\test").listFiles();
+        File[] files = new File(dir).listFiles();
+        ArrayList<File> esl = new ArrayList<>();
+        ArrayList<File> sdat = new ArrayList<>();
         for (File file : files) {
-            if (file.getName().startsWith("ESL")){
-                if (read != null) {
-                    read.clear();
-                }
+            if (file.getName().startsWith("esl")){
                 for (File eslFile : file.listFiles()) {
-                    read.add(eslFile);
+                    esl.add(eslFile);
                 }
-                readESL();
+            } else if(file.getName().startsWith("sdat")){
+                for (File sdatFile : file.listFiles()) {
+                    sdat.add(sdatFile);
+                }
             }
         }
+        read = sdat;
+        readSDAT();
+        read = esl;
+        readESL();
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        DataHandler dh = DataHandler.DATA_HANDLER;
-        dh.readFiles();
-    }
-    public void readSdat(){
-
+    public void readSDAT(){
+        try {
+            double total = 0.0f;
+            JAXBContext context = JAXBContext.newInstance(SDATXml.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            for (File file : read) {
+                sdatXml = (SDATXml) unmarshaller.unmarshal(file);
+                if(!sdatMap.containsKey(sdatXml.getTimeID().toString())) {
+                    for (Metering meters : sdatXml.getMetering()) {
+                        for (Observations obs : meters.getObservations()) {
+                            SDAT sdat = new SDAT(sdatXml.getTimeID(), sdatXml.getNumID(), sdatXml.getMeasure(), obs.getSeqID().get(0), obs.getVolume().get(0));
+                            for (int i = 1; i < obs.getSeqID().size(); i++) {
+                                sdat.addValue(obs.getSeqID().get(i), obs.getVolume().get(i));
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (JAXBException e){
+            e.printStackTrace();
+        }
     }
 
     public void readESL() throws FileNotFoundException {
@@ -62,10 +85,8 @@ public class DataHandler {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             for (File file : read) {
                 eslXml = (ESLXml) unmarshaller.unmarshal(file);
-                System.out.println(file.toString());
                 for (Meter meter : eslXml.getMeterList()) {
                     for (TimePeriod timePeriod : meter.getTimePeriodList()) {
-                        System.out.println(timePeriod.getTime().toString());
                         if (!eslMap.containsKey(timePeriod.getTime().toString())) {
                             for (Values value : timePeriod.getValuesList()) {
                                 String obis = value.getObis();
@@ -74,7 +95,6 @@ public class DataHandler {
                                     case "1.8.2":
                                     case "2.8.1":
                                     case "2.8.2":
-                                        System.out.println(value.getValue());
                                         if(eslMap.containsKey(timePeriod.getTime().toString())){
                                             eslMap.get(timePeriod.getTime().toString()).addValue(value.getValue());
                                         } else {
@@ -100,9 +120,9 @@ public class DataHandler {
 
     }
 
-    //public Map<String, SDAT> getSdatMap() {
-    //    return sdatMap;
-    //}
+    public Map<String, SDAT> getSdatMap() {
+        return sdatMap;
+    }
 
     public Map<String, ESL> getEslMap() {
         return eslMap;

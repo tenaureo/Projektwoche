@@ -1,17 +1,18 @@
 package Datahandler;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Vinicius
- * 30.Sep 2020
- * Version: 1.0
+ * @author Vator AG
+ * @version 1.0
+ * @since 2020-September-30
  */
-@XmlRootElement(name = "ESLBillingData")
+
+@XmlRootElement(name = "ESLBillingData", namespace = "")
 public class ESLXml {
 
     private ArrayList<Meter> meterList;
@@ -19,7 +20,7 @@ public class ESLXml {
     public ESLXml() {
 
     }
-    @XmlElement(name = "Meter")
+    @XmlElement(name = "Meter", namespace = "")
     public ArrayList<Meter> getMeterList() {
         if(meterList == null){
             meterList = new ArrayList<Meter>();
@@ -28,7 +29,7 @@ public class ESLXml {
     }
 }
 
-@XmlRootElement(name = "Meter")
+@XmlRootElement(name = "Meter", namespace = "")
 class Meter {
     private ArrayList<TimePeriod> timePeriodList;
 
@@ -36,7 +37,7 @@ class Meter {
 
     }
 
-    @XmlElement(name = "TimePeriod")
+    @XmlElement(name = "TimePeriod", namespace = "")
     public ArrayList<TimePeriod> getTimePeriodList() {
         if(timePeriodList == null){
             timePeriodList = new ArrayList<TimePeriod>();
@@ -45,7 +46,7 @@ class Meter {
     }
 }
 
-@XmlRootElement(name = "TimePeriod")
+@XmlRootElement(name = "TimePeriod", namespace = "")
 class TimePeriod {
     @XmlAttribute(name = "end")
     private String end;
@@ -62,12 +63,10 @@ class TimePeriod {
 
     public Timestamp getTime(){
         end = end.replace('T', ' ');
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime localDate = LocalDateTime.parse(end, formatter);
-        return Timestamp.valueOf(localDate);
+        return Timestamp.valueOf(end);
     }
 
-    @XmlElement(name = "ValueRow")
+    @XmlElement(name = "ValueRow", namespace = "")
     public ArrayList<Values> getValuesList() {
         if(valuesList == null){
             valuesList = new ArrayList<Values>();
@@ -76,11 +75,11 @@ class TimePeriod {
     }
 }
 
-@XmlRootElement(name = "ValueRow")
+@XmlRootElement(name = "ValueRow", namespace = "")
 class Values {
-    @XmlAttribute(name = "value")
+    @XmlAttribute(name = "value", namespace = "")
     private String value;
-    @XmlAttribute(name = "obis")
+    @XmlAttribute(name = "obis", namespace = "")
     private String obis;
     private Values(){
 

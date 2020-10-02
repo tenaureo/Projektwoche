@@ -5,7 +5,7 @@ import View.View;
 import static javafx.application.Application.launch;
 
 /**
- * @author Vator
+ * @author Vator AG
  * @version 1.0
  * @since 2020-September-30
  */

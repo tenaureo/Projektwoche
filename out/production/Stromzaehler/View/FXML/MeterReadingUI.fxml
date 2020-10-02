@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="450.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MeterReadingController">
+    <BorderPane prefHeight="450.0" prefWidth="680.0" style="-fx-background-color: #244fa7;">
+        <center>
+            <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                <BorderPane.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" />
+                </BorderPane.margin>
+                <children>
+                    <LineChart fx:id="chart" prefHeight="375.0" prefWidth="458.0">
+                        <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis side="LEFT" />
+                        </yAxis>
+                    </LineChart>
+                    <BorderPane prefHeight="375.0" prefWidth="214.0">
+                        <bottom>
+                            <AnchorPane prefHeight="118.0" prefWidth="213.0" BorderPane.alignment="CENTER">
+                                <children>
+                                    <Button layoutX="89.0" layoutY="47.0" mnemonicParsing="false" onAction="#onExport" prefHeight="42.0" prefWidth="110.0" text="exportieren" />
+                                </children>
+                            </AnchorPane>
+                        </bottom>
+                        <center>
+                            <VBox prefHeight="255.0" prefWidth="213.0" style="-fx-border-color: #244fa7; -fx-border-width: 0 0 5 5;" BorderPane.alignment="CENTER">
+                                <children>
+                                    <AnchorPane prefHeight="25.0" prefWidth="213.0">
+                              <children>
+                                 <Label layoutX="89.0" layoutY="15.0" text="Filter:">
+                                    <font>
+                                       <Font size="15.0" />
+                                    </font>
+                                 </Label>
+                              </children></AnchorPane>
+                                    <GridPane>
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="102.199951171875" minWidth="10.0" prefWidth="84.800048828125" />
+                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.5999610900879" minWidth="10.0" prefWidth="127.99995117187501" />
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        </rowConstraints>
+                                        <children>
+                                            <Label text="Anfangsdatum" />
+                                            <Label text="Enddatum" GridPane.rowIndex="1" />
+                                            <DatePicker fx:id="anfang" GridPane.columnIndex="1" />
+                                            <DatePicker fx:id="ende" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        </children>
+                                        <padding>
+                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                        </padding>
+                                    </GridPane>
+                                    <GridPane>
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        </rowConstraints>
+                                        <opaqueInsets>
+                                            <Insets />
+                                        </opaqueInsets>
+                                        <padding>
+                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                        </padding>
+                                        <children>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                <children>
+                                                    <Label layoutX="14.0" layoutY="5.0" text="Hochtarif:" />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                                <children>
+                                                    <Label layoutX="14.0" layoutY="6.0" text="Niedertarif:" />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                                <children>
+                                                    <CheckBox fx:id="einspeisungh" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" text="Einspeisung " />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                <children>
+                                                    <CheckBox fx:id="bezugh" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" text="Bezug" />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                                <children>
+                                                    <CheckBox fx:id="einspeisungn" layoutX="14.0" layoutY="5.0" mnemonicParsing="false" text="Einspeisung " />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                <children>
+                                                    <CheckBox fx:id="bezugn" layoutX="14.0" layoutY="5.0" mnemonicParsing="false" text="Bezug" />
+                                                </children>
+                                            </AnchorPane>
+                                        </children>
+                                    </GridPane>
+                           <AnchorPane prefHeight="44.0" prefWidth="213.0">
+                              <children>
+                                 <Button layoutX="72.0" layoutY="9.0" mnemonicParsing="false" text="Speichern" />
+                              </children>
+                           </AnchorPane>
+                                </children>
+                            </VBox>
+                        </center>
+                    </BorderPane>
+                </children>
+            </HBox>
+        </center>
+        <top>
+            <HBox prefHeight="60.0" prefWidth="680.0" BorderPane.alignment="CENTER">
+                <BorderPane.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </BorderPane.margin>
+                <children>
+                    <AnchorPane prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: white;">
+                        <children>
+                            <Button onAction="#onConsumption" layoutX="35.0" layoutY="12.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Verbrauchsdiagramm" />
+                        </children>
+                        <HBox.margin>
+                            <Insets />
+                        </HBox.margin>
+                    </AnchorPane>
+                    <AnchorPane prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: white;">
+                        <children>
+                            <Button layoutX="35.0" layoutY="12.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Zählerstanddiagramm" textFill="#2fca00" />
+                        </children>
+                    </AnchorPane>
+                    <ImageView fx:id="logo" fitHeight="60.0" fitWidth="232.0" pickOnBounds="true" preserveRatio="true" />
+                </children>
+            </HBox>
+        </top>
+    </BorderPane>
+    <AnchorPane VBox.vgrow="ALWAYS" />
+</VBox>

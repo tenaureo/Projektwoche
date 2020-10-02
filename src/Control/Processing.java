@@ -1,28 +1,26 @@
 package Control;
 
+import Datahandler.DataHandler;
 import Model.SDAT;
 import Model.ESL;
-import com.sun.source.tree.Tree;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
-
-
-
 
 /**
  * @author Vator AG
  * @version 1.0
  * @since 2020-September-30
  */
+
 public class Processing {
 
     private Map<String, ESL> eslMap;
     private Map<String, SDAT> sdatMap;
 
     public Processing(){
-
+        eslMap = DataHandler.DATA_HANDLER.getEslMap();
+        sdatMap = DataHandler.DATA_HANDLER.getSdatMap();
     }
     public Map<String, ESL> getEslMap() {
         return eslMap;

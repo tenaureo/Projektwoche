@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * @author Vator
+ * @author Vator AG
  * @version 1.0
  * @since 2020-September-30
  */
@@ -27,8 +27,7 @@ public class EndUIController implements Initializable {
     @FXML private ImageView logo;
 
     public Image getImage() throws FileNotFoundException {
-        Image image = new Image(new FileInputStream("images/logo2.PNG"));
-        return image;
+        return new Image(new FileInputStream("images/logo2.PNG"));
     }
 
     @Override
@@ -54,7 +53,7 @@ public class EndUIController implements Initializable {
     }
 
     @FXML
-    public void end(ActionEvent event) throws IOException {
+    public void end(ActionEvent event) {
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         Stage primaryStage = (Stage) window.getOwner();
